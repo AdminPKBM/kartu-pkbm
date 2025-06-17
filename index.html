@@ -62,7 +62,6 @@
   <script>
     function openCardWindow() {
       const form = document.forms['formKartu'];
-
       const nama = form['nama'].value;
       const nik = form['nik'].value;
       const ttl = form['ttl'].value;
@@ -102,16 +101,24 @@
                 padding: 10px;
                 position: relative;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                box-sizing: border-box;
               }
               .card-header {
                 text-align: center;
                 font-weight: bold;
                 font-size: 12px;
-                margin-bottom: 5px;
+                margin-bottom: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+              }
+              .card-header img {
+                height: 20px;
               }
               .card-foto {
                 position: absolute;
-                top: 45px;
+                top: 40px;
                 left: 10px;
                 width: 75px;
                 height: 100px;
@@ -120,10 +127,12 @@
               }
               .card-info {
                 position: absolute;
-                top: 45px;
+                top: 40px;
                 left: 95px;
+                right: 10px;
                 font-size: 10px;
                 line-height: 1.4;
+                word-wrap: break-word;
               }
               .footer {
                 position: absolute;
@@ -138,7 +147,10 @@
           </head>
           <body>
             <div class="card">
-              <div class="card-header">KARTU ANGGOTA<br>PKBM CELAH CAHAYA</div>
+              <div class="card-header">
+                <img src="logo.png" alt="logo" />
+                <span>KARTU ANGGOTA<br>PKBM CELAH CAHAYA</span>
+              </div>
               <img src="${fotoData}" class="card-foto" />
               <div class="card-info">
                 <p><strong>Nama:</strong> ${nama}</p>
