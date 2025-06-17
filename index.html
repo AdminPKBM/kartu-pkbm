@@ -4,115 +4,159 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kartu Anggota PKBM Celah Cahaya</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .input {
+      @apply mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 
+      focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm;
+    }
+    .btn-blue {
+      @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center px-4">
-  <div class="w-full max-w-4xl bg-white shadow-xl rounded-lg p-6">
-    <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">Formulir Kartu Anggota</h1>
+<body class="bg-gray-100 py-10 px-4">
+  <div class="max-w-2xl mx-auto bg-white shadow rounded-lg p-6">
+    <h2 class="text-2xl font-bold text-center mb-6">Buat Kartu Anggota PKBM Celah Cahaya</h2>
 
-    <form id="formKartu" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-  <div>
-    <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-    <input type="text" id="nama" name="nama" class="input" placeholder="Contoh: Ruli Lesmana" required>
-  </div>
+    <form name="formKartu" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+        <input type="text" id="nama" name="nama" class="input" required>
+      </div>
+      <div>
+        <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
+        <input type="text" id="nik" name="nik" class="input" required>
+      </div>
+      <div>
+        <label for="ttl" class="block text-sm font-medium text-gray-700">Tempat, Tanggal Lahir</label>
+        <input type="text" id="ttl" name="ttl" class="input" placeholder="Contoh: Garut, 14 September 1987" required>
+      </div>
+      <div>
+        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
+        <input type="text" id="alamat" name="alamat" class="input" required>
+      </div>
+      <div>
+        <label for="program" class="block text-sm font-medium text-gray-700">Program</label>
+        <select id="program" name="program" class="input" required>
+          <option value="" disabled selected>Pilih Program</option>
+          <option value="Paket B">Paket B</option>
+          <option value="Paket C">Paket C</option>
+        </select>
+      </div>
+      <div>
+        <label for="tahun" class="block text-sm font-medium text-gray-700">Tahun Ajaran</label>
+        <input type="text" id="tahun" name="tahun" class="input" placeholder="Contoh: 2025" required>
+      </div>
+      <div class="md:col-span-2">
+        <label for="foto" class="block text-sm font-medium text-gray-700">Upload Foto</label>
+        <input type="file" id="foto" name="foto" accept="image/*" class="input" required>
+      </div>
+    </form>
 
-  <div>
-    <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-    <input type="text" id="nik" name="nik" class="input" placeholder="Contoh: 3205xxxxxxx" required>
-  </div>
-
-  <div>
-    <label for="ttl" class="block text-sm font-medium text-gray-700">Tempat, Tanggal Lahir</label>
-    <input type="text" id="ttl" name="ttl" class="input" placeholder="Contoh: Garut, 14 September 1987" required>
-  </div>
-
-  <div>
-    <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
-    <input type="text" id="alamat" name="alamat" class="input" placeholder="Contoh: Kp. Sukawangi RT.01..." required>
-  </div>
-
-  <div>
-    <label for="program" class="block text-sm font-medium text-gray-700">Program</label>
-    <select id="program" name="program" class="input" required>
-      <option value="" disabled selected>Pilih Program</option>
-      <option value="Paket B">Paket B</option>
-      <option value="Paket C">Paket C</option>
-    </select>
-  </div>
-
-  <div>
-    <label for="tahun" class="block text-sm font-medium text-gray-700">Tahun Ajaran</label>
-    <input type="text" id="tahun" name="tahun" class="input" placeholder="Contoh: 2025" required>
-  </div>
-
-  <div class="md:col-span-2">
-    <label for="foto" class="block text-sm font-medium text-gray-700">Upload Foto</label>
-    <input type="file" id="foto" name="foto" accept="image/*" class="input" required>
-  </div>
-</form>
-
-
-    <div class="flex flex-wrap justify-center gap-4 mb-6">
-      <button onclick="generateCard()" class="btn-blue">Lihat Kartu</button>
-      <button onclick="downloadCard()" class="btn-green">Download Kartu</button>
-    </div>
-
-    <!-- Preview Kartu -->
-<div class="flex justify-center overflow-x-auto mt-6">
-  <div id="idCard" class="relative w-[318px] h-[200px] rounded shadow border overflow-hidden bg-white text-[10px]">
-    <img id="cardFoto" class="absolute top-14 left-2 w-20 h-24 object-cover border bg-gray-200" src="" alt="Foto" />
-    <div class="absolute top-14 left-24 text-xs leading-tight space-y-[2px] text-gray-800">
-      <p><strong>Nama:</strong> <span id="outNama">-</span></p>
-      <p><strong>NIK:</strong> <span id="outNik">-</span></p>
-      <p><strong>TTL:</strong> <span id="outTtl">-</span></p>
-      <p><strong>Alamat:</strong> <span id="outAlamat">-</span></p>
-      <p><strong>Program:</strong> <span id="outProgram">-</span></p>
-      <p><strong>Tahun:</strong> <span id="outTahun">-</span></p>
+    <div class="flex justify-center gap-4 mt-6">
+      <button onclick="openCardWindow()" class="btn-blue">Lihat Kartu</button>
     </div>
   </div>
-</div>
 
-
-  <script src="html2canvas.min.js"></script>
   <script>
-  function generateCard() {
-    const form = document.forms['formKartu'];
+    function openCardWindow() {
+      const form = document.forms['formKartu'];
 
-    document.getElementById('outNama').textContent = form['nama'].value;
-    document.getElementById('outNik').textContent = form['nik'].value;
-    document.getElementById('outTtl').textContent = form['ttl'].value;
-    document.getElementById('outAlamat').textContent = form['alamat'].value;
-    document.getElementById('outProgram').textContent = form['program'].value;
-    document.getElementById('outTahun').textContent = form['tahun'].value;
+      const nama = form['nama'].value;
+      const nik = form['nik'].value;
+      const ttl = form['ttl'].value;
+      const alamat = form['alamat'].value;
+      const program = form['program'].value;
+      const tahun = form['tahun'].value;
+      const fotoInput = form['foto'];
 
-    const fotoInput = document.getElementById('foto');
-    const cardFoto = document.getElementById('cardFoto');
+      if (fotoInput.files.length === 0) {
+        alert("Silakan upload foto terlebih dahulu.");
+        return;
+      }
 
-    if (fotoInput.files.length > 0) {
       const reader = new FileReader();
       reader.onload = function (e) {
-        cardFoto.src = e.target.result;
+        const fotoData = e.target.result;
+
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(`
+          <html>
+          <head>
+            <title>Kartu Anggota</title>
+            <style>
+              body {
+                background: #f0f0f0;
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                padding: 30px;
+              }
+              .card {
+                width: 318px;
+                height: 200px;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 10px;
+                position: relative;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+              }
+              .card-header {
+                text-align: center;
+                font-weight: bold;
+                font-size: 12px;
+                margin-bottom: 5px;
+              }
+              .card-foto {
+                position: absolute;
+                top: 45px;
+                left: 10px;
+                width: 75px;
+                height: 100px;
+                border: 1px solid #333;
+                object-fit: cover;
+              }
+              .card-info {
+                position: absolute;
+                top: 45px;
+                left: 95px;
+                font-size: 10px;
+                line-height: 1.4;
+              }
+              .footer {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                font-size: 9px;
+                color: #555;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              <div class="card-header">KARTU ANGGOTA<br>PKBM CELAH CAHAYA</div>
+              <img src="${fotoData}" class="card-foto" />
+              <div class="card-info">
+                <p><strong>Nama:</strong> ${nama}</p>
+                <p><strong>NIK:</strong> ${nik}</p>
+                <p><strong>TTL:</strong> ${ttl}</p>
+                <p><strong>Alamat:</strong> ${alamat}</p>
+                <p><strong>Program:</strong> ${program}</p>
+                <p><strong>Tahun:</strong> ${tahun}</p>
+              </div>
+              <div class="footer">www.pkbmcelahcahaya.web.id</div>
+            </div>
+          </body>
+          </html>
+        `);
+        newWindow.document.close();
       };
       reader.readAsDataURL(fotoInput.files[0]);
     }
-  }
-
-  function downloadCard() {
-    const card = document.getElementById('idCard');
-    html2canvas(card, {
-      scale: 3,
-      width: 318,
-      height: 200
-    }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = 'Kartu_PKBM_CelahCahaya.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }
-</script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </script>
 </body>
 </html>
