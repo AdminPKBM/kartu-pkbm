@@ -2,53 +2,57 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kartu Anggota PKBM Celah Cahaya</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-    <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">Buat Kartu Anggota PKBM Celah Cahaya</h1>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Buat Kartu Anggota PKBM Celah Cahaya</h1>
 
-    <!-- FORM -->
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="formKartu">
+    <!-- Formulir -->
+    <form id="formKartu" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       <input type="text" id="nama" placeholder="Nama Lengkap" class="input" required>
       <input type="text" id="nik" placeholder="NIK" class="input" required>
       <input type="text" id="ttl" placeholder="Tempat, Tanggal Lahir" class="input" required>
       <input type="text" id="alamat" placeholder="Alamat" class="input" required>
-      <input type="text" id="program" placeholder="Program (Paket A/B/C)" class="input" required>
-      <input type="text" id="kelas" placeholder="Kelas" class="input" required>
+
+      <!-- Ganti "kelas" dengan dropdown program -->
+      <select id="program" class="input" required>
+        <option value="" disabled selected>Pilih Program</option>
+        <option value="Paket B">Paket B</option>
+        <option value="Paket C">Paket C</option>
+      </select>
+
       <input type="text" id="tahun" placeholder="Tahun Ajaran" class="input" required>
       <input type="file" id="foto" accept="image/*" class="input" required>
     </form>
 
-    <!-- BUTTONS -->
-    <div class="flex justify-center gap-4 mb-4">
-      <button onclick="generateCard()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Kartu</button>
-      <button onclick="downloadCard()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Download Kartu</button>
+    <!-- Tombol -->
+    <div class="flex flex-wrap justify-center gap-4 mb-6">
+      <button type="button" onclick="generateCard()" class="btn-blue">Lihat Kartu</button>
+      <button type="button" onclick="downloadCard()" class="btn-green">Download Kartu</button>
     </div>
 
-    <!-- PREVIEW KARTU -->
-    <div class="flex justify-center">
-      <div id="cardOutput" class="bg-white rounded shadow p-3" style="width: 318px; height: 200px;">
-        <div id="idCard" class="w-[318px] h-[200px] relative overflow-hidden rounded" style="font-family: sans-serif;">
-          <img src="logo.png" class="absolute top-2 right-2 w-10 h-10" />
-          <div class="absolute top-2 left-2 text-sm font-bold">PKBM Celah Cahaya</div>
-          <div class="absolute top-6 left-2 text-xs">Kartu Anggota</div>
-          <div class="absolute top-12 left-2 flex">
-            <img id="cardFoto" class="w-20 h-24 object-cover border" src="" alt="Foto"/>
-            <div class="ml-2 text-xs space-y-1">
-              <p><strong>Nama:</strong> <span id="outNama"></span></p>
-              <p><strong>NIK:</strong> <span id="outNik"></span></p>
-              <p><strong>TTL:</strong> <span id="outTtl"></span></p>
-              <p><strong>Program:</strong> <span id="outProgram"></span></p>
-              <p><strong>Kelas:</strong> <span id="outKelas"></span></p>
-              <p><strong>Tahun:</strong> <span id="outTahun"></span></p>
-            </div>
+    <!-- Preview Kartu -->
+    <div class="flex justify-center overflow-x-auto">
+      <div id="idCard" class="bg-white border shadow rounded relative w-[318px] h-[200px] p-2" style="font-family:sans-serif;">
+        <img src="logo.png" class="absolute top-2 right-2 w-10 h-10" alt="Logo PKBM">
+        <div class="absolute top-2 left-2 font-bold text-sm">PKBM Celah Cahaya</div>
+        <div class="absolute top-7 left-2 text-xs text-gray-600">Kartu Anggota</div>
+        <div class="absolute top-12 left-2 flex">
+          <img id="cardFoto" class="w-20 h-24 object-cover border bg-gray-200" src="" alt="Foto" />
+          <div class="ml-2 text-[10px] leading-tight space-y-[2px]">
+            <p><strong>Nama:</strong> <span id="outNama">-</span></p>
+            <p><strong>NIK:</strong> <span id="outNik">-</span></p>
+            <p><strong>TTL:</strong> <span id="outTtl">-</span></p>
+            <p><strong>Alamat:</strong> <span id="outAlamat">-</span></p>
+            <p><strong>Program:</strong> <span id="outProgram">-</span></p>
+            <p><strong>Tahun:</strong> <span id="outTahun">-</span></p>
           </div>
-          <div class="absolute bottom-2 left-2 text-[10px] text-gray-500">www.pkbmcelahcahaya.web.id</div>
         </div>
+        <div class="absolute bottom-2 left-2 text-[9px] text-gray-500">www.pkbmcelahcahaya.web.id</div>
       </div>
     </div>
   </div>
@@ -56,12 +60,13 @@
   <script src="html2canvas.min.js"></script>
   <script>
     function generateCard() {
-      document.getElementById('outNama').textContent = document.getElementById('nama').value;
-      document.getElementById('outNik').textContent = document.getElementById('nik').value;
-      document.getElementById('outTtl').textContent = document.getElementById('ttl').value;
-      document.getElementById('outProgram').textContent = document.getElementById('program').value;
-      document.getElementById('outKelas').textContent = document.getElementById('kelas').value;
-      document.getElementById('outTahun').textContent = document.getElementById('tahun').value;
+      const form = document.forms['formKartu'];
+      document.getElementById('outNama').textContent = form.nama.value;
+      document.getElementById('outNik').textContent = form.nik.value;
+      document.getElementById('outTtl').textContent = form.ttl.value;
+      document.getElementById('outAlamat').textContent = form.alamat.value;
+      document.getElementById('outProgram').textContent = form.program.value;
+      document.getElementById('outTahun').textContent = form.tahun.value;
 
       const fotoInput = document.getElementById('foto');
       if (fotoInput.files && fotoInput.files[0]) {
@@ -75,10 +80,14 @@
 
     function downloadCard() {
       const card = document.getElementById('idCard');
-      html2canvas(card, { scale: 3 }).then(canvas => {
+      html2canvas(card, {
+        scale: 3,
+        width: 318,
+        height: 200
+      }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'Kartu_Anggota_PKBM.png';
-        link.href = canvas.toDataURL();
+        link.download = 'Kartu_PKBM.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
       });
     }
