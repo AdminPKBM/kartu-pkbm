@@ -1,3 +1,11 @@
 .input {
-  @apply border p-2 rounded w-full;
+  @apply border rounded p-2 w-full text-sm;
+}
+
+.btn-blue {
+  @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700;
+}
+
+.btn-green {
+  @apply bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700;
 }
