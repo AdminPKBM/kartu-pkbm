@@ -7,43 +7,60 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
-  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
-    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Buat Kartu Anggota PKBM Celah Cahaya</h1>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-4xl bg-white shadow-xl rounded-lg p-6">
+    <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">Formulir Kartu Anggota</h1>
 
-    <!-- Formulir -->
     <form id="formKartu" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-      <input type="text" id="nama" placeholder="Nama Lengkap" class="input" required>
-      <input type="text" id="nik" placeholder="NIK" class="input" required>
-      <input type="text" id="ttl" placeholder="Tempat, Tanggal Lahir" class="input" required>
-      <input type="text" id="alamat" placeholder="Alamat" class="input" required>
-
-      <!-- Ganti "kelas" dengan dropdown program -->
-      <select id="program" class="input" required>
-        <option value="" disabled selected>Pilih Program</option>
-        <option value="Paket B">Paket B</option>
-        <option value="Paket C">Paket C</option>
-      </select>
-
-      <input type="text" id="tahun" placeholder="Tahun Ajaran" class="input" required>
-      <input type="file" id="foto" accept="image/*" class="input" required>
+      <div>
+        <label class="text-sm font-medium">Nama Lengkap</label>
+        <input type="text" id="nama" class="input" required>
+      </div>
+      <div>
+        <label class="text-sm font-medium">NIK</label>
+        <input type="text" id="nik" class="input" required>
+      </div>
+      <div>
+        <label class="text-sm font-medium">Tempat, Tanggal Lahir</label>
+        <input type="text" id="ttl" class="input" required>
+      </div>
+      <div>
+        <label class="text-sm font-medium">Alamat</label>
+        <input type="text" id="alamat" class="input" required>
+      </div>
+      <div>
+        <label class="text-sm font-medium">Program</label>
+        <select id="program" class="input" required>
+          <option value="" disabled selected>Pilih Program</option>
+          <option value="Paket B">Paket B</option>
+          <option value="Paket C">Paket C</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-sm font-medium">Tahun Ajaran</label>
+        <input type="text" id="tahun" class="input" required>
+      </div>
+      <div class="md:col-span-2">
+        <label class="text-sm font-medium">Upload Foto</label>
+        <input type="file" id="foto" accept="image/*" class="input" required>
+      </div>
     </form>
 
-    <!-- Tombol -->
     <div class="flex flex-wrap justify-center gap-4 mb-6">
-      <button type="button" onclick="generateCard()" class="btn-blue">Lihat Kartu</button>
-      <button type="button" onclick="downloadCard()" class="btn-green">Download Kartu</button>
+      <button onclick="generateCard()" class="btn-blue">Lihat Kartu</button>
+      <button onclick="downloadCard()" class="btn-green">Download Kartu</button>
     </div>
 
-    <!-- Preview Kartu -->
+    <!-- Preview -->
     <div class="flex justify-center overflow-x-auto">
-      <div id="idCard" class="bg-white border shadow rounded relative w-[318px] h-[200px] p-2" style="font-family:sans-serif;">
-        <img src="logo.png" class="absolute top-2 right-2 w-10 h-10" alt="Logo PKBM">
-        <div class="absolute top-2 left-2 font-bold text-sm">PKBM Celah Cahaya</div>
-        <div class="absolute top-7 left-2 text-xs text-gray-600">Kartu Anggota</div>
-        <div class="absolute top-12 left-2 flex">
+      <div id="idCard" class="relative w-[318px] h-[200px] rounded shadow border overflow-hidden bg-white text-[10px]">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-white opacity-70"></div>
+        <div class="absolute top-2 left-2 font-bold text-sm text-blue-800">PKBM Celah Cahaya</div>
+        <img src="logo.png" class="absolute top-2 right-2 w-10 h-10" alt="Logo" />
+        <div class="absolute top-8 left-2 text-xs font-semibold text-gray-700">Kartu Anggota</div>
+        <div class="absolute top-14 left-2 flex">
           <img id="cardFoto" class="w-20 h-24 object-cover border bg-gray-200" src="" alt="Foto" />
-          <div class="ml-2 text-[10px] leading-tight space-y-[2px]">
+          <div class="ml-2 leading-tight space-y-[2px] text-[9px] text-gray-800">
             <p><strong>Nama:</strong> <span id="outNama">-</span></p>
             <p><strong>NIK:</strong> <span id="outNik">-</span></p>
             <p><strong>TTL:</strong> <span id="outTtl">-</span></p>
@@ -52,7 +69,7 @@
             <p><strong>Tahun:</strong> <span id="outTahun">-</span></p>
           </div>
         </div>
-        <div class="absolute bottom-2 left-2 text-[9px] text-gray-500">www.pkbmcelahcahaya.web.id</div>
+        <div class="absolute bottom-2 left-2 text-[8px] text-gray-500">www.pkbmcelahcahaya.web.id</div>
       </div>
     </div>
   </div>
