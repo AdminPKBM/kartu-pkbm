@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kartu Anggota PKBM Celah Cahaya</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-center mb-4">Formulir Kartu Anggota PKBM Celah Cahaya</h1>
+
+    <!-- Form Input -->
+    <form id="kartuForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" id="nama" placeholder="Nama Lengkap" class="border p-2 rounded" required>
+      <input type="text" id="nik" placeholder="NIK" class="border p-2 rounded" required>
+      <input type="text" id="ttl" placeholder="Tempat, Tanggal Lahir" class="border p-2 rounded" required>
+      <input type="text" id="alamat" placeholder="Alamat Lengkap" class="border p-2 rounded" required>
+      <input type="text" id="program" placeholder="Program (Paket A/B/C)" class="border p-2 rounded" required>
+      <input type="text" id="kelas" placeholder="Kelas" class="border p-2 rounded" required>
+      <input type="text" id="tahun" placeholder="Tahun Ajaran (contoh: 2025/2026)" class="border p-2 rounded" required>
+      <input type="file" id="foto" accept="image/*" class="border p-2 rounded">
+    </form>
+
+    <div class="text-center mt-4">
+      <button onclick="buatKartu()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lihat Kartu</button>
+      <button onclick="window.print()" class="ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cetak</button>
+    </div>
+
+    <!-- Preview Kartu -->
+    <div id="previewKartu" class="mt-8 hidden print:block">
+      <div class="w-[350px] h-[220px] border border-gray-400 p-3 relative bg-white" id="kartu">
+        <img src="logo.png" alt="Logo PKBM" class="absolute top-3 right-3 w-12 h-12">
+        <h2 class="text-lg font-bold mb-1">PKBM Celah Cahaya</h2>
+        <p class="text-sm font-semibold mb-2">Kartu Anggota Warga Belajar</p>
+        <div class="flex">
+          <div>
+            <img id="previewFoto" src="" alt="Foto" class="w-20 h-24 object-cover border mr-3" />
+          </div>
+          <div class="text-sm space-y-1">
+            <p><strong>Nama:</strong> <span id="outNama"></span></p>
+            <p><strong>NIK:</strong> <span id="outNik"></span></p>
+            <p><strong>TTL:</strong> <span id="outTtl"></span></p>
+            <p><strong>Program:</strong> <span id="outProgram"></span></p>
+            <p><strong>Kelas:</strong> <span id="outKelas"></span></p>
+            <p><strong>Tahun:</strong> <span id="outTahun"></span></p>
+          </div>
+        </div>
+        <div class="absolute bottom-3 right-3 text-xs text-gray-500">www.pkbmcelahcahaya.web.id</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function buatKartu() {
+      document.getElementById('outNama').textContent = document.getElementById('nama').value;
+      document.getElementById('outNik').textContent = document.getElementById('nik').value;
+      document.getElementById('outTtl').textContent = document.getElementById('ttl').value;
+      document.getElementById('outProgram').textContent = document.getElementById('program').value;
+      document.getElementById('outKelas').textContent = document.getElementById('kelas').value;
+      document.getElementById('outTahun').textContent = document.getElementById('tahun').value;
+
+      // Preview Foto
+      const fotoInput = document.getElementById('foto');
+      const previewFoto = document.getElementById('previewFoto');
+      if (fotoInput.files && fotoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewFoto.src = e.target.result;
+        };
+        reader.readAsDataURL(fotoInput.files[0]);
+      } else {
+        previewFoto.src = '';
+      }
+
+      document.getElementById('previewKartu').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
