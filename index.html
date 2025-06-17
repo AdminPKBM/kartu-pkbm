@@ -5,40 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kartu Anggota PKBM Celah Cahaya</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .input {
-      @apply mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 
-      focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm;
-    }
-    .btn-blue {
-      @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition;
-    }
-  </style>
 </head>
 <body class="bg-gray-100 py-10 px-4">
   <div class="max-w-2xl mx-auto bg-white shadow rounded-lg p-6">
-    <h2 class="text-2xl font-bold text-center mb-6">Buat Kartu Anggota PKBM Celah Cahaya</h2>
+    <h2 class="text-2xl font-bold text-center mb-6 text-blue-800">Buat Kartu Anggota PKBM Celah Cahaya</h2>
 
     <form name="formKartu" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-        <input type="text" id="nama" name="nama" class="input" required>
+        <input type="text" id="nama" name="nama" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
       </div>
       <div>
         <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-        <input type="text" id="nik" name="nik" class="input" required>
+        <input type="text" id="nik" name="nik" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
       </div>
       <div>
         <label for="ttl" class="block text-sm font-medium text-gray-700">Tempat, Tanggal Lahir</label>
-        <input type="text" id="ttl" name="ttl" class="input" placeholder="Contoh: Garut, 14 September 1987" required>
+        <input type="text" id="ttl" name="ttl" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Contoh: Garut, 14 September 1987" required>
       </div>
       <div>
         <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
-        <input type="text" id="alamat" name="alamat" class="input" required>
+        <input type="text" id="alamat" name="alamat" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
       </div>
       <div>
         <label for="program" class="block text-sm font-medium text-gray-700">Program</label>
-        <select id="program" name="program" class="input" required>
+        <select id="program" name="program" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" required>
           <option value="" disabled selected>Pilih Program</option>
           <option value="Paket B">Paket B</option>
           <option value="Paket C">Paket C</option>
@@ -46,16 +37,16 @@
       </div>
       <div>
         <label for="tahun" class="block text-sm font-medium text-gray-700">Tahun Ajaran</label>
-        <input type="text" id="tahun" name="tahun" class="input" placeholder="Contoh: 2025" required>
+        <input type="text" id="tahun" name="tahun" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm" placeholder="Contoh: 2025" required>
       </div>
       <div class="md:col-span-2">
         <label for="foto" class="block text-sm font-medium text-gray-700">Upload Foto</label>
-        <input type="file" id="foto" name="foto" accept="image/*" class="input" required>
+        <input type="file" id="foto" name="foto" accept="image/*" class="mt-1 block w-full" required>
       </div>
     </form>
 
     <div class="flex justify-center gap-4 mt-6">
-      <button onclick="openCardWindow()" class="btn-blue">Lihat Kartu</button>
+      <button onclick="openCardWindow()" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Lihat Kartu</button>
     </div>
   </div>
 
@@ -78,9 +69,8 @@
       const reader = new FileReader();
       reader.onload = function (e) {
         const fotoData = e.target.result;
-
-        const newWindow = window.open('', '_blank');
-        newWindow.document.write(`
+        const cardWindow = window.open('', '_blank');
+        cardWindow.document.write(`
           <html>
           <head>
             <title>Kartu Anggota</title>
@@ -88,64 +78,58 @@
               body {
                 margin: 0;
                 padding: 0;
+                background: #f4f4f4;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
-                font-family: sans-serif;
-                background-color: #f3f4f6;
+                font-family: 'Segoe UI', sans-serif;
               }
               .card {
-                width: 318px;
-                height: 200px;
-                border-radius: 10px;
-                overflow: hidden;
+                width: 340px;
+                height: 220px;
                 position: relative;
-                background-image: url('/pngwing.com.png');
+                border-radius: 12px;
+                background-image: url('background.png');
                 background-size: cover;
                 background-position: center;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                padding: 10px;
-                box-sizing: border-box;
-                color: white;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                color: #fff;
+                padding: 12px;
               }
               .card-header {
                 text-align: center;
+                font-size: 12px;
                 font-weight: bold;
-                font-size: 11px;
-                margin-bottom: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
+                margin-bottom: 8px;
               }
               .card-header img {
-                height: 20px;
+                height: 28px;
+                vertical-align: middle;
+                margin-right: 5px;
               }
               .card-foto {
-                position: absolute;
-                top: 45px;
-                left: 10px;
-                width: 75px;
-                height: 100px;
-                border: 1px solid #fff;
+                width: 80px;
+                height: 105px;
                 object-fit: cover;
+                border: 2px solid #fff;
+                border-radius: 6px;
+                position: absolute;
+                top: 55px;
+                left: 12px;
               }
               .card-info {
                 position: absolute;
-                top: 45px;
-                left: 95px;
-                right: 10px;
-                font-size: 9.5px;
-                line-height: 1.35;
-                word-wrap: break-word;
-                color: #fff;
+                top: 55px;
+                left: 105px;
+                font-size: 10px;
+                line-height: 1.4;
               }
               .footer {
                 position: absolute;
-                bottom: 8px;
+                bottom: 10px;
                 left: 0;
-                right: 0;
+                width: 100%;
                 text-align: center;
                 font-size: 9px;
                 color: #ddd;
@@ -155,10 +139,10 @@
           <body>
             <div class="card">
               <div class="card-header">
-                <img src="logo.jpg" alt="logo" />
-                <span>KARTU ANGGOTA<br>PKBM CELAH CAHAYA</span>
+                <img src="logo.jpg" alt="logo">
+                KARTU ANGGOTA PKBM CELAH CAHAYA
               </div>
-              <img src="${fotoData}" class="card-foto" />
+              <img src="${fotoData}" class="card-foto" alt="Foto">
               <div class="card-info">
                 <p><strong>Nama:</strong> ${nama}</p>
                 <p><strong>NIK:</strong> ${nik}</p>
@@ -172,7 +156,7 @@
           </body>
           </html>
         `);
-        newWindow.document.close();
+        cardWindow.document.close();
       };
       reader.readAsDataURL(fotoInput.files[0]);
     }
